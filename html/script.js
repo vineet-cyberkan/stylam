@@ -107,7 +107,7 @@ var rangeArray = [], categoryArray = [], filters = [], productData = [], filtere
 	    		});
 	    	};
 
-	    	filters;
+	    	//filters;
 
 	    	filteredProductData = productData.filter(function(obj) {
 	            if (obj.category == filters.category && obj.range == filters.range) {
@@ -115,7 +115,29 @@ var rangeArray = [], categoryArray = [], filters = [], productData = [], filtere
 	            }
 	        });
 
-	        filteredProductData;
+	        //filteredProductData;
+	        stylam.products.renderData(filteredProductData);
+	    },
+
+	    renderData: function(filteredProductData){
+	    	if (filteredProductData.length > 0 ) {
+	    		$('#dataCount span').text(filteredProductData.length);
+	    		$('ul#dataCont').empty();
+	    		var li = '';
+	    		for ( x in filteredProductData ){
+	    			var p = '', filteredDataNode = filteredProductData[x];
+	    			for ( nodes in filteredDataNode) {
+	    				p += '<p><strong>'+nodes+'</strong>: '+filteredDataNode[nodes]+'</p>'
+	    			}
+	    			//$('ul#dataCont').append(li);
+	    			//li.append(p);
+	    			li += '<li>'+p+'</li>';
+	    		}
+	    		$('ul#dataCont').append(li);
+	    	} else{
+	    		$('ul#dataCont').empty().append('<li>Data not available</li>');
+	    		$('#dataCount span').text('0');
+	    	}
 	    }
 	}
 })(window, document, jQuery, stylam);
@@ -124,6 +146,10 @@ window.onload = function(){
 	if ($('#productCont').length) {
 		stylam.products.init();
 	}
+
+	$(document).on("change", '#filterCont .filterCont select', function(e) {
+        stylam.products.genrateFilterObj(productData);
+    });
 }
 
 window.onresize = function(){

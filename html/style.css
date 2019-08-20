@@ -10,3 +10,4 @@
 	background-repeat: no-repeat;
     background-position: center;
 }
+#dataCont li { display: inline-block; border: 1px solid #ccc; padding: 15px; min-width: 280px; }
