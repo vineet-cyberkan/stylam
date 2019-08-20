@@ -1,6 +1,6 @@
 var stylam = window.stylam || {};
 
-var rangeArray = [], categoryArray = [], finishFullArray = [], productData = [], filteredProductData = [];
+var rangeArray = [], categoryArray = [], filters = [], productData = [], filteredProductData = [];
 
 (function (window, document, $, stylam) {
 	stylam.products = {
@@ -60,7 +60,7 @@ var rangeArray = [], categoryArray = [], finishFullArray = [], productData = [],
 					console.log(categoryArray.length);*/
 					stylam.products.genrateFilter(rangeArray, 'range');
 					stylam.products.genrateFilter(categoryArray, 'category');
-					stylam.products.genrateFilteredData(productData);
+					stylam.products.genrateFilterObj(productData);
 	            },
 
 	            complete: function() {
@@ -95,12 +95,27 @@ var rangeArray = [], categoryArray = [], finishFullArray = [], productData = [],
 	    	
 	    },
 
-	    genrateFilteredData: function(productData){
-	    	if (productData.length > 0 ) {
-	    		debugger;
-	    		productData;
-	    	}
-	    	
+	    genrateFilterObj: function(productData){
+	    	var filtersNode = $('#filterCont .filterCont select');
+	    	if (productData.length > 0 && filtersNode.length > 0 ) {
+	    		//debugger;
+	    		//productData;
+	    		$.each(filtersNode, function(index, val) {
+	    			var key = $(this).attr('id'), val = $(this).val();
+	    			//console.log('key =>'+key+'; val =>'+val);
+	    			filters[key] = val.replace(/_/gi, " ");
+	    		});
+	    	};
+
+	    	filters;
+
+	    	filteredProductData = productData.filter(function(obj) {
+	            if (obj.category == filters.category && obj.range == filters.range) {
+	            	return obj.category
+	            }
+	        });
+
+	        filteredProductData;
 	    }
 	}
 })(window, document, jQuery, stylam);
