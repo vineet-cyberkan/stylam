@@ -1,6 +1,6 @@
 var stylam = window.stylam || {};
 
-var rangeArray = [], categoryArray = [], finishFullArray = [];
+var rangeArray = [], categoryArray = [], finishFullArray = [], productData = [], filteredProductData = [];
 
 (function (window, document, $, stylam) {
 	stylam.products = {
@@ -28,7 +28,7 @@ var rangeArray = [], categoryArray = [], finishFullArray = [];
 	            success: function success(productsData) {
 					console.log(productsData.total)
 					if (productsData.total > 0) {
-						var products = productsData.data;
+						var products = productData = productsData.data;
 						for ( x in products ){
 							//console.log(products[x])
 							productNode = products[x];
@@ -60,6 +60,7 @@ var rangeArray = [], categoryArray = [], finishFullArray = [];
 					console.log(categoryArray.length);*/
 					stylam.products.genrateFilter(rangeArray, 'range');
 					stylam.products.genrateFilter(categoryArray, 'category');
+					stylam.products.genrateFilteredData(productData);
 	            },
 
 	            complete: function() {
@@ -80,14 +81,24 @@ var rangeArray = [], categoryArray = [], finishFullArray = [];
 	    genrateFilter: function(filterObject, filterName){
 	    	if (filterObject.length > 0 ) {
 	    		var select = '<select id="'+filterName+'"></select>';
+	    		var selectLabel = '<label for="'+filterName+'">'+filterName+'</label>';
 	    		if ($('#filterCont').length > 0) {
-		    		$('#filterCont').append(select);
+		    		//$('#filterCont').append(select);
+		    		$('#filterCont').append('<div class="filterCont">'+selectLabel+select+'</div>');
 		    	}
 	    		for( x in filterObject){
 	    			//var option = '<option value="'+x+'">'+filterObject[x]+'</option>';
 	    			var option = '<option value="'+filterObject[x].replace(/ /gi, "_")+'">'+filterObject[x]+'</option>';
 	    			$('select#'+filterName).append(option);
 	    		}
+	    	}
+	    	
+	    },
+
+	    genrateFilteredData: function(productData){
+	    	if (productData.length > 0 ) {
+	    		debugger;
+	    		productData;
 	    	}
 	    	
 	    }
