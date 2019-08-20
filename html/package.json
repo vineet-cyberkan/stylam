@@ -1,0 +1,24 @@
+{
+  "name": "testing-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/webpack"
+  },
+  "keywords": [
+    "webpack",
+    "es6"
+  ],
+  "author": "Vineet Kumar",
+  "license": "MIT",
+  "dependencies": {
+    "babel-loader": "^8.0.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6"
+  }
+}
